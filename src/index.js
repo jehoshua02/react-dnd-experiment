@@ -1,7 +1,12 @@
 var React = require('react');
 var Board = require('./Board');
+var observe = require('./Game').observe;
 
-React.render(
-  <Board knightPosition={[0, 0]} />,
-  document.getElementById('root')
-);
+var rootEl = document.getElementById('root');
+
+observe(function (knightPosition) {
+  React.render(
+    <Board knightPosition={knightPosition} />,
+    rootEl
+  );
+});
