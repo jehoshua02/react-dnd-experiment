@@ -1,4 +1,7 @@
-import React from 'react';
-import App from './App';
+var React = require('react');
+var Board = require('./Board');
 
-React.render(<App />, document.getElementById('root'));
+React.render(
+  <Board knightPosition={[0, 0]} />,
+  document.getElementById('root')
+);
