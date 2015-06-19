@@ -13,12 +13,22 @@ var Board = React.createClass({
   render: function () {
     return (
       <div style={{
+        position: 'relative',
+        height: 0,
         width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexWrap: 'wrap'
+        paddingTop: '100%'
       }}>
-        {this.renderSquares()}
+        <div style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexWrap: 'wrap',
+          position: 'absolute',
+          top: 0,
+          left: 0
+        }}>
+          {this.renderSquares()}
+        </div>
       </div>
     );
   },
