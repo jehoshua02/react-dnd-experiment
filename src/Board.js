@@ -1,7 +1,7 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 var Knight = require('./Knight');
-var Square = require('./Square');
+var BoardSquare = require('./BoardSquare');
 var {moveKnight, canMoveKnight} = require('./Game');
 var DragDropContext = require('react-dnd').DragDropContext;
 var HTML5Backend = require('react-dnd/modules/backends/HTML5');
@@ -49,23 +49,22 @@ var Board = React.createClass({
   renderSquare: function (i) {
     var x = i % 8;
     var y = Math.floor(i / 8);
-    var black = (x + y) % 2 === 1;
-
-    var knightX = this.props.knightPosition[0];
-    var knightY = this.props.knightPosition[1];
-    var piece = (x === knightX && y === knightY) ?
-      <Knight /> :
-      null;
 
     return (
       <div key={i}
         style={{ width: '12.5%', height: '12.5%' }}
         onClick={this.handleSquareClick.bind(this, x, y)}>
-        <Square black={black}>
-          {piece}
-        </Square>
+        <BoardSquare x={x} y={y}>
+          {this.renderPiece(x, y)}
+        </BoardSquare>
       </div>
     );
+  },
+
+  renderPiece: function (x, y) {
+    var knightX = this.props.knightPosition[0];
+    var knightY = this.props.knightPosition[1];
+    return (x === knightX && y === knightY) ? <Knight /> : null;
   },
 
   handleSquareClick: function (x, y) {
