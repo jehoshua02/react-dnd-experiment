@@ -3,6 +3,8 @@ var PropTypes = React.PropTypes;
 var Knight = require('./Knight');
 var Square = require('./Square');
 var {moveKnight, canMoveKnight} = require('./Game');
+var DragDropContext = require('react-dnd').DragDropContext;
+var HTML5Backend = require('react-dnd/modules/backends/HTML5');
 
 var Board = React.createClass({
   propTypes: {
@@ -73,4 +75,4 @@ var Board = React.createClass({
   }
 });
 
-module.exports = Board;
+module.exports = DragDropContext(HTML5Backend)(Board);
