@@ -3,19 +3,6 @@ var PropTypes = React.PropTypes;
 var ItemTypes = require('./Constants').ItemTypes;
 var DragSource = require('react-dnd').DragSource;
 
-var knightSource = {
-  beginDrag: function (props) {
-    return {};
-  }
-};
-
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
-}
-
 var Knight = React.createClass({
   propTypes: {
     connectDragSource: PropTypes.func.isRequired,
@@ -39,4 +26,22 @@ var Knight = React.createClass({
   }
 });
 
-module.exports = DragSource(ItemTypes.KNIGHT, knightSource, collect)(Knight);
+var dragSource = {
+  spec: {
+    beginDrag: function (props) {
+      return {};
+    }
+  },
+  props: function (connect, monitor) {
+    return {
+      connectDragSource: connect.dragSource(),
+      isDragging: monitor.isDragging()
+    }
+  }
+};
+
+module.exports = DragSource(
+  ItemTypes.KNIGHT,
+  dragSource.spec,
+  dragSource.props
+)(Knight);

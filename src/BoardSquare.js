@@ -6,23 +6,6 @@ var moveKnight = require('./Game').moveKnight;
 var ItemTypes = require('./Constants').ItemTypes;
 var DropTarget = require('react-dnd').DropTarget;
 
-var squareTarget = {
-  canDrop: function (props) {
-    return canMoveKnight(props.x, props.y);
-  },
-  drop: function (props, monitor) {
-    moveKnight(props.x, props.y);
-  }
-};
-
-function collect(connect, monitor) {
-  return {
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    canDrop: monitor.canDrop()
-  };
-}
-
 var BoardSquare = React.createClass({
   propTypes: {
     x: PropTypes.number.isRequired,
@@ -72,4 +55,27 @@ var BoardSquare = React.createClass({
   }
 });
 
-module.exports = DropTarget(ItemTypes.KNIGHT, squareTarget, collect)(BoardSquare);
+var dropTarget = {
+  spec: {
+    canDrop: function (props) {
+      return canMoveKnight(props.x, props.y);
+    },
+    drop: function (props, monitor) {
+      moveKnight(props.x, props.y);
+    }
+  },
+
+  props: function (connect, monitor) {
+    return {
+      connectDropTarget: connect.dropTarget(),
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    };
+  }
+};
+
+module.exports = DropTarget(
+  ItemTypes.KNIGHT,
+  dropTarget.spec,
+  dropTarget.props
+)(BoardSquare);
