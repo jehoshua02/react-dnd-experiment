@@ -29,7 +29,7 @@ var BoardSquare = React.createClass({
     y: PropTypes.number.isRequired,
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
-    connectDropTarget: PropTypes.bool.isRequired
+    connectDropTarget: PropTypes.func.isRequired
   },
 
   render: function () {
@@ -48,6 +48,7 @@ var BoardSquare = React.createClass({
         <Square black={black}>
           {this.props.children}
         </Square>
+
         {isOver && !canDrop && this.renderOverlay('red')}
         {!isOver && canDrop && this.renderOverlay('yellow')}
         {isOver && canDrop && this.renderOverlay('green')}
