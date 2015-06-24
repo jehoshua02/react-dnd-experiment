@@ -52,8 +52,7 @@ var Board = React.createClass({
 
     return (
       <div key={i}
-        style={{ width: '12.5%', height: '12.5%' }}
-        onClick={this.handleSquareClick.bind(this, x, y)}>
+        style={{ width: '12.5%', height: '12.5%' }}>
         <BoardSquare x={x} y={y}>
           {this.renderPiece(x, y)}
         </BoardSquare>
@@ -65,13 +64,8 @@ var Board = React.createClass({
     var knightX = this.props.knightPosition[0];
     var knightY = this.props.knightPosition[1];
     return (x === knightX && y === knightY) ? <Knight /> : null;
-  },
-
-  handleSquareClick: function (x, y) {
-    if (canMoveKnight(x, y)) {
-      moveKnight(x, y);
-    }
   }
+
 });
 
 module.exports = DragDropContext(HTML5Backend)(Board);
